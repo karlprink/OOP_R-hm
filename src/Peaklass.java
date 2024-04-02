@@ -22,16 +22,16 @@ public class Peaklass {
         System.out.println("Sisesta mängulaua pikkus: ");
         int mängulauaPikkus = sisse.nextInt();
         System.out.println("Asud 1. ruudul.");
-        int[] mängulaud = Mängulaud.looMängulaud(mängulauaPikkus);
+        int[] mängulaud = looMängulaud(mängulauaPikkus);
         int oledRuudul = 0;
         sisse.nextLine(); // Tarbib reavahetuse pärast nextInt()
 
-        List<Mang.Küsimused> küsimusteList = KüsimusteKlass.laeKüsimused();
+        List<Mang.Küsimused> küsimusteList = KüsimusteKlass.laeKüsimused("küsimused.txt");
 
         while (!küsimusteList.isEmpty()) {
             Mang.Küsimused küsimused = küsimusteList.remove((int) (Math.random() * küsimusteList.size()));
             System.out.println(küsimused);
-            System.out.print("Sinu vastus (a, b, c või d): ");
+            System.out.print("Sinu vastus (a, b või c): ");
             String userAnswer = sisse.nextLine().trim().toLowerCase();
 
             if (oledRuudul + 1 == mängulauaPikkus) {
@@ -60,5 +60,20 @@ public class Peaklass {
             System.out.println("Küsimused on otsas. Mäng on läbi!");
         }
         sisse.close();
+    }
+    /**
+     * LooMängulaud on staatiline meetod, mis genereerib ja tagastab mängulaua massiivi.
+     * See meetod seab mängija algselt esimesele ruudule mängulaual ja prindib mängulaua
+     * esialgse seisundi konsooli.
+     *
+     * @param pikkus Määrab mängulaua ruutude arvu.
+     * @return Tagastab int tüüpi massiivi, mis esindab mängulaua ruutude seisundit,
+     *         kus 1 tähistab mängija praegust asukohta ja 0 kõiki teisi ruute.
+     */
+    public static int[] looMängulaud(int pikkus) {
+        int[] mängulaud = new int[pikkus]; // Loob uue int-tüüpi massiivi mängulaua jaoks.
+        mängulaud[0] = 1; // Määrab mängija asukoha esimesele ruudule.
+        System.out.println(Arrays.toString(mängulaud)); // Prindib mängulaua algseisundi konsoolile.
+        return mängulaud; // Tagastab loodud mängulaua.
     }
 }
